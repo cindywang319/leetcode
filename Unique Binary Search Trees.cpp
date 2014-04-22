@@ -1,18 +1,19 @@
 class Solution {
 public:
     int numTrees(int n) {
-        // Start typing your C/C++ solution below
-        // DO NOT write int main() function
-        vector<int> dp;
-        for (int i = 0; i <= n; i++) {
-            dp.push_back(0);
-        }
-        dp[0] = 1;
-        for (int i = 1; i <= n; i++) {
-            for (int j = 1; j <= i; j++) {
-                dp[i] += (dp[j - 1] * dp[i - j]);
+        if(n < 1) return 0;
+        
+        int ans[n + 1];
+        memset(ans, 0, sizeof(ans));
+        ans[0] = 1;
+        
+        for(int i = 1; i <= n; i++) {
+            for(int j = 0; j < i; j++) {
+                ans[i] += ans[j]*ans[i - j - 1];
             }
         }
-        return dp[n];
+        
+        
+        return ans[n];
     }
 };
